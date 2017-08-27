@@ -1,0 +1,67 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<!--<link rel="import"  href="https://polygit.org/polymer+2.0.0-rc.2/components/polymer/polymer-element.html">
+-->
+
+<dom-module id="icon-toggle3">
+
+
+  <template>
+
+    <style>
+      /* local DOM styles go here */
+      :host {
+        display: inline-block;
+      }
+      iron-icon {
+        fill: rgba(0,0,0,0);
+        stroke: currentcolor;
+      }
+      :host([pressed]) iron-icon {
+        fill: currentcolor;
+      }
+    </style>
+
+    <!-- local DOM goes here -->
+    <!--
+     1. The icon="[[toggle3Icon]]"assignment is a data binding. 
+      It links your element's toggle3Icon property 
+      with the <iron-icon>'s icon property.
+      Note that 'toggle3Icon' is a 'camelCase' Javascript property name.
+      It is used below as the property name.
+      In the icon-toggle3-demo, we see 'toggle3-icon' as the html
+       attribute name to which 'toggle3Icon' corresponds. 
+      This mapping between camelCase property names and hyphenated 
+       attribute names is done by Polymer; this is part of 'data binding'
+         <icon-toggle3 toggle3-icon="star"></icon-toggle3>
+                   ..  
+    -->
+    <iron-icon icon="[[toggle3Icon]]">
+    </iron-icon>
+    
+  </template>
+
+  <script>
+  Polymer({
+    is: 'icon-toggle3',
+    // This declares the 'toggle3Icon' property mentioned above
+     properties: {
+      toggle3Icon: String,
+      pressed: {
+        type: Boolean,
+        value: false,  // default value
+        notify: true,  // dispatch property change events 
+        /* tells Polymer to update the corresponding attribute when the
+           property changes. 
+           This lets you style the element using an attribute selector, 
+           like icon-toggle3[pressed].
+        */
+        reflectToAttribute: true 
+      }
+    }
+  });
+  </script>
+
+</dom-module>
+

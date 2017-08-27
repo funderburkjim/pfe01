@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script>
+      /*
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+      */
+    </script>
+    <link rel="import" href="icon-toggle5f-demo.html">
+   <!-- custom style -->
+<style is="custom-style">
+      /* Define a document-wide default.
+         This will function, since the :host rule in icon-toggle5f-demo
+         for the property --icon-toggle-outline-color has been commented out.
+      */
+      :root {
+        --icon-toggle-outline-color: red;
+      }
+      /* WILL override the value specified in icon-toggle5f-demo */
+      icon-toggle5f-demo {
+        --icon-toggle-pressed-color: blue;
+      }
+      /* This rule does not work! */
+      body {
+        --icon-toggle-color: purple;
+      }
+    </style>
+  </head>
+  <body>
+   <H1>first-element/step-5f : Document level custom style</H1>
+    <icon-toggle5f-demo></icon-toggle5f-demo>
+  </body>
+</html>

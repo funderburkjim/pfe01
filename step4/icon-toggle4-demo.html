@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="icon-toggle4.html">
+
+
+<dom-module id="icon-toggle4-demo">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+      };
+    </style>
+  
+    <h3>Statically-configured icon-toggle4s</h3>
+    
+    <icon-toggle4 toggle4-icon="star"></icon-toggle4>
+    <icon-toggle4 toggle4-icon="star" pressed></icon-toggle4>
+    <!-- experiment with other icon names -->
+    <ul>
+    <li> icon = add:  <icon-toggle4 toggle4-icon="add"></icon-toggle4> </li>
+    <li> icon = menu:  <icon-toggle4 toggle4-icon="menu"></icon-toggle4> </li>
+    <li> icon = settings:  <icon-toggle4 toggle4-icon="settings"></icon-toggle4> </li>
+    </ul>
+    
+    <h3>Data-bound icon-toggle4</h3>
+
+    <!-- use a computed binding to generate the message -->
+    <div><span>[[message(isFav)]]</span></div>
+
+    <!-- curly brackets ({{}}} allow two-way binding --> 
+    <icon-toggle4 toggle4-icon="favorite" pressed="{{isFav}}"></icon-toggle4>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "icon-toggle4-demo",
+      message: function(fav) {
+        if (fav) {
+          return "You really like me!";
+        } else {
+          return "Do you like me?";
+        }
+      }
+    });
+  </script>
+</dom-module>

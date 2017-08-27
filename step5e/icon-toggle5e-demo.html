@@ -1,0 +1,50 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="icon-toggle5e.html">
+
+
+<dom-module id="icon-toggle5e-demo">
+  <template>
+    <style>
+      :host {
+        font-family: sans-serif;
+        --icon-toggle-color: lightgrey;
+        --icon-toggle-outline-color: black;
+        --icon-toggle-pressed-color: red;
+        
+      };
+    </style>
+  
+    <h3>Statically-configured icon-toggle5es</h3>
+    
+    <icon-toggle5e toggle5e-icon="star"></icon-toggle5e>
+    <icon-toggle5e toggle5e-icon="star" pressed></icon-toggle5e>
+    <!-- experiment with other icon names -->
+    <ul>
+    <li> icon = add:  <icon-toggle5e toggle5e-icon="add"></icon-toggle5e> </li>
+    <li> icon = menu:  <icon-toggle5e toggle5e-icon="menu"></icon-toggle5e> </li>
+    <li> icon = settings:  <icon-toggle5e toggle5e-icon="settings"></icon-toggle5e> </li>
+    </ul>
+    
+    <h3>Data-bound icon-toggle5e</h3>
+
+    <!-- use a computed binding to generate the message -->
+    <div><span>[[message(isFav)]]</span></div>
+
+    <!-- curly brackets ({{}}} allow two-way binding --> 
+    <icon-toggle5e toggle5e-icon="favorite" pressed="{{isFav}}"></icon-toggle5e>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "icon-toggle5e-demo",
+      message: function(fav) {
+        if (fav) {
+          return "You really like me!";
+        } else {
+          return "Do you like me?";
+        }
+      }
+    });
+  </script>
+</dom-module>

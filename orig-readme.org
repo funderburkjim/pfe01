@@ -1,0 +1,224 @@
+
+polymer tutorial
+(8/25/2017)
+ref:
+https://www.polymer-project.org/1.0/start/
+
+This is an older version, acc. to this web page.
+
+My first objective is to make a variant that disentagles the demo from
+peculiarities of the nodejs server.  It should run with a simple
+server,  e.g. pythom -m SimpleHttpServer.
+I began this work on glitch.com: https://equable-verdict.glitch.me/
+This in turn was based on an example found by searching for 'polymer'
+on the Glitch Forum: https://support.glitch.com/t/how-to-install-polymer-2-0/1270
+
+This gives example: ref https://glitch.com/edit/#!/cold-umbrella
+and I began by remixing this:  That's where the equable-verdict version began.
+
+* download glitch equable verdict.
+This glitch example was constructed (somehow) using bower.  It has two
+critical pieces:  polymer.html and webcomponentsjs.
+I'm not quite sure where these come from, so I'll just download the
+glitch equable-verdict code base as a starter. 
+(Advanced-options/download project)
+equable-verdict-2017-08-26_021027.tgz
+Use 7-zip (extract-here):
+equable-verdict-2017-08-26_021027.tar
+Use 7-zip again (extract-here):
+app
+Rename 'app' to 'equable-verdict'   (6.48 mb)
+* download polymer-first-element
+From the polymer tutorial mentioned above:
+https://github.com/googlecodelabs/polymer-first-elements/releases/download/v1.0/polymer-first-elements.zip
+polymer-first-elements.zip
+7-zip (extract-here):
+polymer-first-elements # folder 1.33 mb
+ bower_components
+ demo
+ icon-toggle-finished
+ icon-toggle.html
+
+* pfe01  (8/25/2017)
+#First version. Use GitBash terminal
+mkdir pfe01
+cd pfe01
+mkdir public
+cd ../  # back to parent of pfe01
+cp equable-verdict/public/icon-toggle.html pfe01/public/
+cp equable-verdict/public/icon-toggle-demo.html pfe01/public/
+cp equable-verdict/public/index.html pfe01/public/
+* get the dependencies
+#Make a bower-components as sibling of pfe01/public
+mkdir pfe01/bower_components
+mkdir pfe01/bower_components/polymer
+cp equable-verdict/bower_components/polymer/polymer.html pfe01/bower_components/polymer/
+cp equable-verdict/bower_components/polymer/polymer-micro.html pfe01/bower_components/polymer/
+cp equable-verdict/bower_components/polymer/polymer-mini.html pfe01/bower_components/polymer/
+# webcomponentsjs contains the 'polyfills'  - a bunch of javascript files.
+# webcomponentsjs/webcomponents.js  contains ALL the polyfills.
+mkdir pfe01/bower_components/webcomponentsjs
+cp equable-verdict/bower_components/webcomponentsjs/webcomponents.js pfe01/bower_components/webcomponentsjs/
+# apparently also need the X-lit
+cp equable-verdict/bower_components/webcomponentsjs/webcomponents-lite.js pfe01/bower_components/webcomponentsjs/
+# copy the webcomponents needed for this icon-toggle example 
+# from the polymer-first-element download.
+# Note1:  This download also has a polymer and webcomponentsjs directory.
+#         The polymer.html files are quite different. (2384 lines in diff)
+#         The webcomponents.js files are slightly different (89 lines in diff)
+# Note2:  The other directories of polymer-first-elements/bower_components
+#         are same as in equable-verdict/bower_components, since I 
+#         got the equable-verdict files from the polymer-first-elements download
+# Note3:  There are some 'extra' files in these other webcomponent directories
+#         But it is simpler just to copy the whole directory.
+cp -r polymer-first-elements/bower_components/iron-flex-layout/ pfe01/bower_components
+cp -r polymer-first-elements/bower_components/iron-icon/ pfe01/bower_components
+cp -r polymer-first-elements/bower_components/iron-icons/ pfe01/bower_components
+cp -r polymer-first-elements/bower_components/iron-iconset-svg/ pfe01/bower_components
+cp -r polymer-first-elements/bower_components/iron-meta/ pfe01/bower_components
+* Try running pfe01/public/index.html on python server. IT WORKS!
+ Start the server in pfe01.
+# in a separate GIt Bash Terminal:
+cd pfe01
+python -m SimpleHTTPServer
+# in Browser, url = http://localhost:8000/public/index.html
+* NOTE on tutorial status
+The above example is completed through the step2_: Add local DOM.
+(ref https://www.polymer-project.org/1.0/start/first-element/step-2)
+The only changes I made to the download of polymer-first-element were:
+** a) moving  index.html and icon-toggle-demo.html
+   FROM polymer-first-elements/demo TO pfe01/public
+** b) Changing the href links in icon-toggle-demo.html 
+  FROM:
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../icon-toggle.html">
+  TO:
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="icon-toggle.html">
+** c) changing the path in index.html to webcomponents.js
+  FROM:
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  TO:
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+** d) Changing link hrefs in icon-toggle.html
+  FROM:
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+  TO:
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+
+** reasons for change
+ The tutorial assumes the use of polymer server, which does some 
+ remapping of urls and hrefs.  This is poorly explained, and, to me
+ extremently confusing.
+ The pfe01  changes are conformant with the usual interpretation of
+ resource locations in most servers (e.g., should work just fine with Apache,
+ or with GitHub Pages).
+* Note on browser   (Windows edge iffy)
+ NO: In Windows Edge, there is no display. Developer tools show no error.
+ YES:  In FireFox,  the display is same as in Chrome.
+ A second try showed that Windows Edge Browser works just fine.
+   Not sure why there was a problem previously.
+* PFE01/step3/
+  Step 3 of the tutorial
+https://www.polymer-project.org/1.0/start/first-element/step-3
+** copy public (step2) to step3
+cp -r PFE01/public PFE01/step3
+Note: To have BOTH public and step3 in the same 'app',
+  it seems necessary to CHANGE THE NAME OF COMPONENTS AND FILES:
+  toggle -> toggle3 in 
+  FILENAMES: icon-toggle3.html, icon-toggle3-demo.html
+  references:
+  * in index.html  - icon-toggle3-demo
+  * in icon-toggle3-demo.html:   toggle -> toggle3
+  * in icon-toggle3.html:  toggle->toggle3
+
+** modifications, per tutorial, in icon-toggle.html
+OLD: <iron-icon icon="polymer"></iron-icon>
+NEW: <iron-icon icon="\[\[toggle3Icon\]\]"></iron-icon>  
+   The back slashes are related to emacs org mode. They are not in 
+   icon-toggle.html.
+   The value resolves to the value of the toggle3-icon attribute when
+   the icon-toggle element is used in the demo file. For example:
+   <icon-toggle3 toggle3-icon="star"></icon-toggle3>
+The toggleIcon property is added in the Polymer element prototype 
+   section of icon-toggle3.html
+Also, the 'pressed' property is added (but not currently used.
+** additional modification
+  in demo file, added three new icon-toggle3 elements, with different icons.
+* PFE01/step4/   adding an event-listener
+  Step 4 of the tutorial
+https://www.polymer-project.org/1.0/start/first-element/step-4
+** copy step3 to step4
+cp -r PFE01/step3 PFE01/step4
+Note: As before with the transition from public to step3,
+  We make similar changes in the transition from step3 to step4.
+  Change the 'toggle3' to 'toggle4' in the file names,
+  And within the file similarly change toggle3 to toggle4.
+ 
+** modifications, per tutorial, in icon-toggle4.html
+ Add 'listeners' and 'toggle' objects to element prototype.
+ The 'toggle' function toggles the value of the 'pressed' property of
+  the element.  
+
+* PFE01/step5/   Theming with custom CSS properties
+  Step 5 of the tutorial
+https://www.polymer-project.org/1.0/start/first-element/step-5
+** copy step4 to step5
+cp -r PFE01/step4 PFE01/step5
+Note: As before with the transition from public to step4,
+  We make similar changes in the transition from step4 to step5.
+  Change the 'toggle4' to 'toggle5' in the file names,
+  And within the file similarly change toggle4 to toggle5.
+ 
+** modifications, per tutorial, in icon-toggle5.html
+Custom CSS properties allow the user of an element to style a component.
+In Polymer's implementation, you apply a custom property inside the
+element using the 'var' function.
+background-color: var(--my-custom-property, defaultValue);
+Where --my-custom-property is a custom property name, 
+   always starting with two dashes (--), 
+   and defaultValue is an (optional) CSS value that's used 
+   if the custom property isn't set.
+This is done with the element's 'style' tag.
+See changes in icon-toggle5.htnml
+** modification to icon-toggle5-demo.html
+   Style icon-toggle5 elements with custom styling.
+* PFE01/step5e/  custom properties at the document level
+  Step 5e of the tutorial
+https://www.polymer-project.org/1.0/start/first-element/step-5
+** copy step5 to step5e
+cp -r PFE01/step5 PFE01/step5e
+Note: As before with the transition from public to step5,
+  We make similar changes in the transition from step5 to step5e.
+  Change the 'toggle5' to 'toggle5e' in the file names,
+  And within the file similarly change toggle5 to toggle5e.
+ 
+** modifications, per tutorial, in index.html
+  Add <style is="custom-style">...</style> in <head>
+
+** comment from tutorial
+The :root selector is a standard CSS selector that's equivalent to the highest level element in the document, so it's usually equivalent to html. In the custom-style element, you need to use :root, not html to specify document-wide defaults.
+
+The icon-toggle-demo selector matches the icon-toggle-demo element, and has a higher specificity than the :host rule inside icon-toggle-demo, so it overrides the values there.
+
+Custom properties can only be defined in rule-sets that match the :root selector or a Polymer custom element. This is a limitation of the Polymer implementation of custom properties.
+
+* PFE01/step5f/  custom properties at the document level, part 2
+  Step 5f of the tutorial
+https://www.polymer-project.org/1.0/start/first-element/step-5
+** copy step5e to step5f
+cp -r PFE01/step5e PFE01/step5f
+Note: As before with the transition from public to step5e,
+  We make similar changes in the transition from step5e to step5f.
+  Change the 'toggle5e' to 'toggle5f' in the file names,
+  And within the file similarly change toggle5e to toggle5f.
+ 
+** modifications, per tutorial, in index.html
+  Add <style is="custom-style">...</style> in <head>
+
+
+* THE END
